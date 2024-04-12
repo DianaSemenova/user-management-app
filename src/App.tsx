@@ -1,22 +1,12 @@
-import "./App.scss";
+import { BrowserRouter } from "react-router-dom";
+import "./styles/app.scss";
+import { AppRoutes } from "./routes/routes";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App__header">
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App__link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+      <AppRoutes />
+    </BrowserRouter>
   );
 }
 
