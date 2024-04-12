@@ -66,3 +66,28 @@ h6 {
   font-size: inherit;
   font-weight: 400;
 }
+
+.center {
+  max-width: 1140px;
+  margin: 0 auto;
+
+  @media (max-width: 1024px) {
+    max-width: 960px;
+  }
+
+  @media (max-width: 960px) {
+    max-width: 720px;
+  }
+  @media (max-width: 820px) {
+    max-width: 576px;
+  }
+
+  @media (max-width: 620px) {
+    padding: 0px 15px;
+  }
+}
+
+// .center {
+//   padding-left: calc(50% - 600px);
+//   padding-right: calc(50% - 600px);
+// }
