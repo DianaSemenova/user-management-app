@@ -1,4 +1,14 @@
+import { useAppSelector } from "../../store/hooks";
+import { useGetUsersQuery } from "../../services/users";
+
 const Main = () => {
+  const params = useAppSelector((state) => state.users.params);
+  const { data, error, isLoading } = useGetUsersQuery(params);
+
+  console.log("isLoading", isLoading);
+  console.log("data", data);
+  console.log("error", error);
+
   return (
     <main className="container center">
       <nav>hhhh</nav>
