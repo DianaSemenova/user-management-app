@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { IconButton, useMediaQuery } from "@mui/material";
-import MenuIcon from "@mui/icons-material/Menu";
+import { useMediaQuery } from "@mui/material";
+import IconButtonNav from "../../UI/IconButtonNav/IconButtonNav";
 
 const Header = () => {
   const isMobile = useMediaQuery("(max-width: 767px)");
@@ -19,21 +19,7 @@ const Header = () => {
         <Link to="/" className="header__link">
           My Application
         </Link>
-        <IconButton
-          edge="start"
-          color="inherit"
-          aria-label="menu"
-          sx={{
-            color: "rgba(255, 255, 255, 0.5)",
-            borderRadius: "4px",
-            border: "1px solid rgba(255, 255, 255, 0.1)",
-            padding: "4px 12px",
-            display: isMobile ? "flex" : "none",
-          }}
-          onClick={handleClickNavBtn}
-        >
-          <MenuIcon sx={{ fontSize: 30 }} />
-        </IconButton>
+        <IconButtonNav isMobile={isMobile} onClick={handleClickNavBtn} />
         <div
           className={
             isActiveNavBtn ? "header-nav-block-mob" : "header-nav-block"

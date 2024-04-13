@@ -10,7 +10,7 @@ export const usersQuery = createApi({
   }),
 
   endpoints: (build) => ({
-    getUsers: build.query<IUser, IGetUsersParams>({
+    getUsers: build.query<IUser[], IGetUsersParams>({
       query: (params) => {
         // const {} = params;
         console.log("params", params);

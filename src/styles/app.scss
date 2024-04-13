@@ -90,6 +90,13 @@
   flex-direction: column;
   padding: 80px 0px 20px;
   width: 100%;
+  gap: 20px;
+
+  &-breadcrumbs {
+    background-color: #e9ecef;
+    padding: 12px 16px;
+    border-radius: 4px;
+  }
 }
 
 .footer {

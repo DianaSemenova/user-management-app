@@ -21,3 +21,8 @@ export interface IGetUsersParams {
 }
 
 export interface IParamsState extends IGetUsersParams {}
+
+export interface ITableHeaderNames {
+  name: string;
+  nameEn: string;
+}
