@@ -1,3 +1,9 @@
+.wrapper {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
 .header {
   position: fixed;
   top: 0;
@@ -61,12 +67,13 @@
   display: flex;
   flex-direction: column;
   padding: 70px 0px 20px;
-  min-height: calc(100vh - 60px);
+  width: 100%;
 }
 
 .footer {
   background-color: #f5f5f5;
   width: 100%;
+  margin-top: auto;
 
   &-block {
     display: flex;
