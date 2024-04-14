@@ -1,18 +1,28 @@
 import * as React from "react";
+import { useLocation } from "react-router-dom";
 import Breadcrumbs from "@mui/material/Breadcrumbs";
 import Link from "@mui/material/Link";
 
 function handleClick(event: React.MouseEvent<HTMLDivElement, MouseEvent>) {
   event.preventDefault();
-  console.info("You clicked a breadcrumb.");
 }
 
-const ActiveLastBreadcrumb = () => {
+interface IActiveLastBreadcrumbProps {
+  id?: string | undefined;
+}
+
+const ActiveLastBreadcrumb = ({ id = "" }: IActiveLastBreadcrumbProps) => {
+  const location = useLocation().pathname === `/view-user-info/${id}`;
+
   return (
     <div
       role="presentation"
       className="container-breadcrumbs"
-      onClick={handleClick}
+      onClick={(event) => {
+        if (!location) {
+          handleClick(event);
+        }
+      }}
     >
       <Breadcrumbs
         aria-label="breadcrumb"
@@ -22,26 +32,36 @@ const ActiveLastBreadcrumb = () => {
           underline="hover"
           color="inherit"
           href="/"
-          style={{ color: "#007bff", fontSize: "14px" }}
+          style={{
+            color: "#007bff",
+            fontSize: "14px",
+          }}
         >
           Главная
         </Link>
         <Link
-          underline="none"
+          underline={location ? "hover" : "none"}
           color="inherit"
-          href="/material-ui/getting-started/installation/"
-          style={{ color: "#6c757d", fontSize: "14px" }}
+          href="/"
+          style={{
+            color: location ? "#007bff" : "#6c757d",
+            cursor: location ? "pointer" : "text",
+          }}
         >
           Пользователи
         </Link>
-        {/* <Link
-          underline="hover"
-          color="text.primary"
-          href="/material-ui/react-breadcrumbs/"
-          aria-current="page"
-        >
-          ID
-        </Link> */}
+        {location && (
+          <Link
+            underline="none"
+            href="/"
+            style={{
+              cursor: "text",
+              color: "#6c757d",
+            }}
+          >
+            {id}
+          </Link>
+        )}
       </Breadcrumbs>
     </div>
   );

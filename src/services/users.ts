@@ -22,10 +22,15 @@ export const usersQuery = createApi({
       },
       providesTags: ["Users"],
     }),
+    getUser: build.query<IUser, string | undefined>({
+      query: (id) => `/view?id=${id}`,
+      providesTags: ["User"],
+    }),
     getFoodList: build.query({
       query: () => "/get-food-list",
     }),
   }),
 });
 
-export const { useGetUsersQuery, useGetFoodListQuery } = usersQuery;
+export const { useGetUsersQuery, useGetFoodListQuery, useGetUserQuery } =
+  usersQuery;
