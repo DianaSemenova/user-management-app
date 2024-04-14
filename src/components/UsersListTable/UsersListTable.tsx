@@ -13,6 +13,7 @@ import {
   ThemeProvider,
 } from "@mui/material";
 import { tableHeaderNames } from "../../utils/data";
+import UsersListTableItem from "./UsersListTableItem/UsersListTableItem";
 
 const UsersListTable = () => {
   const params = useAppSelector((state) => state.users.params);
@@ -53,30 +54,7 @@ const UsersListTable = () => {
               ))}
             </TableRow>
             {data?.map((user, index) => (
-              <TableRow
-                key={user.id}
-                sx={{
-                  background: index % 2 !== 0 ? "inherit" : "#dee2e6",
-                }}
-              >
-                <TableCell>{index + 1}</TableCell>
-                <TableCell>{user.id}</TableCell>
-                <TableCell>
-                  <img
-                    src={
-                      user.photo_id
-                        ? "user.photo_id"
-                        : "public/user-placeholder.png"
-                    }
-                    alt="./user-placeholder.png"
-                  />
-                </TableCell>
-                <TableCell>{user.username}</TableCell>
-                <TableCell>{user.email}</TableCell>
-                <TableCell>{user.birthdate}</TableCell>
-                <TableCell>{user.favorite_food_ids[0]}</TableCell>
-                <TableCell>иконки</TableCell>
-              </TableRow>
+              <UsersListTableItem key={user.id} user={user} index={index} />
             ))}
           </TableBody>
         </Table>

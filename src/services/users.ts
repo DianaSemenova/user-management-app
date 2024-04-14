@@ -22,7 +22,10 @@ export const usersQuery = createApi({
       },
       providesTags: ["Users"],
     }),
+    getFoodList: build.query({
+      query: () => "/get-food-list",
+    }),
   }),
 });
 
-export const { useGetUsersQuery } = usersQuery;
+export const { useGetUsersQuery, useGetFoodListQuery } = usersQuery;
