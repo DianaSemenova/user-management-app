@@ -22,10 +22,37 @@ export const usersQuery = createApi({
       },
       providesTags: ["Users"],
     }),
+    getUser: build.query<IUser, string | undefined>({
+      query: (id) => `/view?id=${id}`,
+      providesTags: ["User"],
+    }),
     getFoodList: build.query({
       query: () => "/get-food-list",
+    }),
+    deleteUser: build.mutation({
+      query: ({ id }) => ({
+        url: `/delete?id=${id}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: ["Users", "User"],
+    }),
+    deleteAvatarUser: build.mutation({
+      query: (body) => ({
+        url: `/file/delete`,
+        params: {
+          id: body.id,
+        },
+        method: "DELETE",
+      }),
+      invalidatesTags: ["Users", "User"],
     }),
   }),
 });
 
-export const { useGetUsersQuery, useGetFoodListQuery } = usersQuery;
+export const {
+  useGetUsersQuery,
+  useGetFoodListQuery,
+  useGetUserQuery,
+  useDeleteUserMutation,
+  useDeleteAvatarUserMutation,
+} = usersQuery;

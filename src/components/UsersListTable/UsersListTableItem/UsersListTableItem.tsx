@@ -1,11 +1,9 @@
-/* eslint-disable no-restricted-globals */
-import { Link } from "react-router-dom";
+import { useAppSelector } from "../../../store/hooks";
 import { TableCell, TableRow } from "@mui/material";
 import { IUser } from "../../../types/types";
-import { useGetFoodListQuery } from "../../../services/users";
-import VisibilityIcon from "@mui/icons-material/Visibility";
-import EditIcon from "@mui/icons-material/Edit";
-import DeleteIcon from "@mui/icons-material/Delete";
+import { getFoodName } from "../../../utils/helpers";
+import Link from "@mui/material/Link";
+import TableIcons from "../TableIcons/TableIcons";
 
 interface IUsersListTableItemProps {
   user: IUser;
@@ -13,20 +11,12 @@ interface IUsersListTableItemProps {
 }
 
 const UsersListTableItem = ({ user, index }: IUsersListTableItemProps) => {
-  const { data: foodList } = useGetFoodListQuery(undefined);
-
-  const getFoodName = (foodID: number) => {
-    if (foodList && foodList[foodID]) {
-      return foodList[foodID];
-    } else {
-      return "Некорректный ID еды";
-    }
-  };
+  const foodList = useAppSelector((state) => state.users.foodList);
 
   return (
     <TableRow
       sx={{
-        background: index % 2 !== 0 ? "inherit" : "#e9ecef",
+        background: index % 2 !== 0 ? "inherit" : "rgba(0, 0, 0, 0.05);",
       }}
     >
       <TableCell>{index + 1}</TableCell>
@@ -36,71 +26,38 @@ const UsersListTableItem = ({ user, index }: IUsersListTableItemProps) => {
           <img
             className="container-img-block__img"
             src={
-              user.photo_id
-                ? `https://tasks.tizh.ru/file/get?id=${user.photo_id}`
-                : "user-placeholder.png"
+              user?.photo_id
+                ? `https://tasks.tizh.ru/file/get?id=${user?.photo_id}`
+                : "../user-placeholder.png"
             }
             alt="avatar-user"
           />
         </div>
       </TableCell>
       <TableCell>{user?.username}</TableCell>
-      <TableCell>{user?.email}</TableCell>
+      <TableCell>
+        <Link
+          underline="hover"
+          color="inherit"
+          href={`mailto:${user?.email}`}
+          style={{
+            color: "#007bff",
+            fontSize: "14px",
+          }}
+        >
+          {user?.email}
+        </Link>
+      </TableCell>
       <TableCell>{user?.birthdate}</TableCell>
       <TableCell>
-        {user?.favorite_food_ids?.map((foodID) => {
-          return <div key={foodID}>{getFoodName(foodID)}</div>;
-        })}
+        <ul className="container__food-list">
+          {user?.favorite_food_ids?.map((foodID) => {
+            return <li key={foodID}>{getFoodName(foodID, foodList)}</li>;
+          })}
+        </ul>
       </TableCell>
       <TableCell>
-        <div className="container-icons-block">
-          <Link to="/" title="Просмотр">
-            <VisibilityIcon
-              color="primary"
-              sx={{
-                fontSize: "25px",
-                "&:hover": {
-                  fill: "#064b8e",
-                },
-              }}
-              aria-label="Просмотр"
-            />
-          </Link>
-
-          <Link to="/" title="Редактировать">
-            <EditIcon
-              color="primary"
-              sx={{
-                fontSize: "25px",
-                "&:hover": {
-                  fill: "#064b8e",
-                },
-              }}
-            />
-          </Link>
-
-          <Link to="/" title="Удалить">
-            <button
-              className="container-icons-block__button"
-              onClick={() => {
-                const result = confirm(
-                  "Вы уверены, что хотите удалить этот элемент?"
-                );
-                alert(result);
-              }}
-            >
-              <DeleteIcon
-                color="primary"
-                sx={{
-                  fontSize: "25px",
-                  "&:hover": {
-                    fill: "#064b8e",
-                  },
-                }}
-              />
-            </button>
-          </Link>
-        </div>
+        <TableIcons user={user} />
       </TableCell>
     </TableRow>
   );

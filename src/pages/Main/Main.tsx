@@ -7,7 +7,7 @@ const Main = () => {
   const navigate = useNavigate();
 
   return (
-    <main className="container center">
+    <>
       <ActiveLastBreadcrumb />
       <Button
         variant="contained"
@@ -21,7 +21,7 @@ const Main = () => {
         Добавить пользователя
       </Button>
       <UsersListTable />
-    </main>
+    </>
   );
 };
 

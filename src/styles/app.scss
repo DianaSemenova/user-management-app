@@ -127,6 +127,19 @@
       outline: none;
     }
   }
+
+  &-box {
+    display: flex;
+    flex-direction: row;
+    gap: 30px;
+  }
+
+  &__food-list {
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+    flex-wrap: wrap;
+  }
 }
 
 .footer {
