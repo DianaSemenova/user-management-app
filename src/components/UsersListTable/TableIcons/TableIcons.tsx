@@ -1,17 +1,39 @@
 /* eslint-disable no-restricted-globals */
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
+import { IUser } from "../../../types/types";
+import { useDeleteUserMutation } from "../../../services/users";
 
 interface ITableIconsProps {
-  id: number;
+  user: IUser;
 }
 
-const TableIcons = ({ id }: ITableIconsProps) => {
+const TableIcons = ({ user }: ITableIconsProps) => {
+  const navigate = useNavigate();
+  const [deleteInfoUser, { isLoading, error }] = useDeleteUserMutation();
+
+  const deleteUser = async () => {
+    try {
+      await deleteInfoUser({ id: user.id });
+
+      if (!isLoading) {
+        alert("Пользователь успешно удален");
+        navigate("/");
+      }
+
+      if (error) {
+        alert(error);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <div className="container-icons-block">
-      <Link to={`/view-user-info/${id}`} title="Просмотр">
+      <Link to={`/view-user-info/${user.id}`} title="Просмотр">
         <VisibilityIcon
           color="primary"
           sx={{
@@ -43,7 +65,10 @@ const TableIcons = ({ id }: ITableIconsProps) => {
             const result = confirm(
               "Вы уверены, что хотите удалить этот элемент?"
             );
-            alert(result);
+            if (result) {
+              deleteUser();
+            }
+            return;
           }}
         >
           <DeleteIcon

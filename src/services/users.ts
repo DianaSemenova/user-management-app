@@ -29,8 +29,30 @@ export const usersQuery = createApi({
     getFoodList: build.query({
       query: () => "/get-food-list",
     }),
+    deleteUser: build.mutation({
+      query: ({ id }) => ({
+        url: `/delete?id=${id}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: ["Users", "User"],
+    }),
+    deleteAvatarUser: build.mutation({
+      query: (body) => ({
+        url: `/file/delete`,
+        params: {
+          id: body.id,
+        },
+        method: "DELETE",
+      }),
+      invalidatesTags: ["Users", "User"],
+    }),
   }),
 });
 
-export const { useGetUsersQuery, useGetFoodListQuery, useGetUserQuery } =
-  usersQuery;
+export const {
+  useGetUsersQuery,
+  useGetFoodListQuery,
+  useGetUserQuery,
+  useDeleteUserMutation,
+  useDeleteAvatarUserMutation,
+} = usersQuery;

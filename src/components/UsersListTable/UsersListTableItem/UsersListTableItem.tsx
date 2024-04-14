@@ -16,7 +16,7 @@ const UsersListTableItem = ({ user, index }: IUsersListTableItemProps) => {
   return (
     <TableRow
       sx={{
-        background: index % 2 !== 0 ? "inherit" : "#e9ecef",
+        background: index % 2 !== 0 ? "inherit" : "rgba(0, 0, 0, 0.05);",
       }}
     >
       <TableCell>{index + 1}</TableCell>
@@ -28,7 +28,7 @@ const UsersListTableItem = ({ user, index }: IUsersListTableItemProps) => {
             src={
               user?.photo_id
                 ? `https://tasks.tizh.ru/file/get?id=${user?.photo_id}`
-                : "user-placeholder.png"
+                : "../user-placeholder.png"
             }
             alt="avatar-user"
           />
@@ -57,7 +57,7 @@ const UsersListTableItem = ({ user, index }: IUsersListTableItemProps) => {
         </ul>
       </TableCell>
       <TableCell>
-        <TableIcons id={user?.id} />
+        <TableIcons user={user} />
       </TableCell>
     </TableRow>
   );

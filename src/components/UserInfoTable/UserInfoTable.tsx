@@ -116,7 +116,7 @@ const UserInfoTable = ({ user }: IUserInfoTableProps) => {
                 src={
                   user?.photo_id
                     ? `https://tasks.tizh.ru/file/get?id=${user?.photo_id}`
-                    : "user-placeholder.png"
+                    : "../user-placeholder.png"
                 }
                 alt="avatar-user"
               />
