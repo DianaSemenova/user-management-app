@@ -26,3 +26,11 @@ export interface ITableHeaderNames {
   name: string;
   nameEn: string;
 }
+
+export interface IBodyUserPost {
+  username: string;
+  email: string;
+  selectedFoods: number[];
+  birthdate: string;
+  image: File | null;
+}

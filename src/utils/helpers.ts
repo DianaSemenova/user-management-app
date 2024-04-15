@@ -1,3 +1,5 @@
+import * as yup from "yup";
+
 export const getFoodName = (
   foodID: number,
   foodList: { [key: string]: string }
@@ -8,3 +10,14 @@ export const getFoodName = (
     return "Некорректный ID еды";
   }
 };
+
+export const schema = yup.object().shape({
+  username: yup
+    .string()
+    .required("Имя пользователя обязательно для заполнения"),
+  email: yup
+    .string()
+    .email("Некорректный адрес электронной почты")
+    .required("Адрес электронной почты обязателен для заполнения"),
+  birthdate: yup.string().required("Дата рождения обязательна для заполнения"),
+});
