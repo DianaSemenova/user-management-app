@@ -49,23 +49,18 @@ export const usersQuery = createApi({
     createUser: build.mutation({
       query: (body) => {
         const formData = new FormData();
+        const file = body.image;
 
-        formData.append("file", body.image);
+        formData.append("username", body.username);
+        formData.append("email", body.email);
+        formData.append("birthdate", body.birthdate);
+        formData.append("favorite_food_ids", body.favorite_food_ids);
+        formData.append("upload_photo", file);
 
         return {
           url: `/create`,
           method: "POST",
-          body: {
-            username: body.username,
-            email: body.email,
-            favorite_food_ids: body.selectedFoods,
-            birthdate: body.birthdate,
-            upload_photo: formData,
-          },
-
-          headers: {
-            "content-type": "application/json",
-          },
+          body: formData,
         };
       },
       invalidatesTags: ["Users", "User"],
@@ -74,23 +69,18 @@ export const usersQuery = createApi({
     updateUser: build.mutation({
       query: (body) => {
         const formData = new FormData();
+        const file = body.image;
 
-        formData.append("file", body.image);
+        formData.append("username", body.username);
+        formData.append("email", body.email);
+        formData.append("birthdate", body.birthdate);
+        formData.append("favorite_food_ids", body.favorite_food_ids);
+        formData.append("upload_photo", file);
 
         return {
-          url: `/update?id=${body.id}`,
-          method: "PUT",
-          body: {
-            username: body.username,
-            email: body.email,
-            favorite_food_ids: body.selectedFoods,
-            birthdate: body.birthdate,
-            upload_photo: formData,
-          },
-
-          headers: {
-            "content-type": "application/json",
-          },
+          url: `/create`,
+          method: "POST",
+          body: formData,
         };
       },
       invalidatesTags: ["Users", "User"],
@@ -106,5 +96,5 @@ export const {
   useDeleteUserMutation,
   useDeleteAvatarUserMutation,
   useCreateUserMutation,
-  useUpdateUserMutation
+  useUpdateUserMutation,
 } = usersQuery;
