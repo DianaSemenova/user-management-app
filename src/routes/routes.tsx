@@ -11,7 +11,8 @@ export function AppRoutes() {
       <Route path="/" element={<Layout />}>
         <Route path="/" element={<Main />} />
         <Route path="/view-user-info/:id" element={<UserInfo />} />
-        <Route path="/create-user" element={<CreateUser />} />
+        <Route path="/create-user" element={<CreateUser isEdit={false} />} />
+        <Route path="/update-user/:id" element={<CreateUser isEdit />} />
         <Route path="*" element={<NotFound />} />
       </Route>
     </Routes>

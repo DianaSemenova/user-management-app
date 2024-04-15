@@ -7,12 +7,21 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { Button, TextField } from "@mui/material";
 import DatePickerValue from "../UI/DatePickerValue/DatePickerValue";
 import CheckboxesTags from "../UI/CheckboxesTags/CheckboxesTags";
-import { schema } from "../../utils/helpers";
+import { schema, clearingFormData } from "../../utils/helpers";
 import Avatar from "./Avatar/Avatar";
 import { setUsername, setEmail } from "../../store/slices/users";
-import { useCreateUserMutation } from "../../services/users";
+import {
+  useCreateUserMutation,
+  useUpdateUserMutation,
+} from "../../services/users";
+import { IUser } from "../../types/types";
 
-const FormCreateUser = () => {
+interface IFormCreateUserProps {
+  isEdit: boolean;
+  userInfo: IUser | undefined;
+}
+
+const FormCreateUser = ({ isEdit, userInfo }: IFormCreateUserProps) => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const { username, email, selectedFoods, birthdate } = useAppSelector(
@@ -27,11 +36,13 @@ const FormCreateUser = () => {
     resolver: yupResolver(schema),
   });
   const [createUser, { isLoading, data }] = useCreateUserMutation();
-  console.log("errors", errors);
+  const [updateUser, { isLoading: isLoadingUser, data: dataUser }] =
+    useUpdateUserMutation();
 
   const onSubmit = async () => {
     try {
-      await createUser({
+      const fettchUser = isEdit ? updateUser : createUser;
+      await fettchUser({
         username,
         email,
         selectedFoods,
@@ -39,9 +50,20 @@ const FormCreateUser = () => {
         image,
       });
 
-      if (!isLoading && data?.id) {
-        console.log("data", data);
+      if (!isLoading && data?.id && !isEdit) {
         const id = data?.id;
+
+        clearingFormData(dispatch);
+
+        alert("Пользователь успешно создан");
+        navigate(`/view-user-info/${id}`);
+      }
+
+      if (!isLoadingUser && dataUser?.id && isEdit) {
+   
+        const id = dataUser?.id;
+
+        clearingFormData(dispatch);
 
         alert("Пользователь успешно создан");
         navigate(`/view-user-info/${id}`);
@@ -53,7 +75,7 @@ const FormCreateUser = () => {
 
   return (
     <form className="form-add-user" onSubmit={handleSubmit(onSubmit)}>
-      <Avatar image={image} setImage={setImage} />
+      <Avatar image={image} setImage={setImage} userInfo={userInfo} />
       <TextField
         id="username"
         label="Имя пользователя"
@@ -62,6 +84,7 @@ const FormCreateUser = () => {
         error={!!errors.username}
         helperText={errors.username?.message}
         autoComplete="off"
+        value={username}
         onChange={(e) => dispatch(setUsername(e.target.value))}
       />
 
@@ -72,9 +95,10 @@ const FormCreateUser = () => {
         {...register("email")}
         error={!!errors.email}
         helperText={errors.email?.message}
+        value={email}
         onChange={(e) => dispatch(setEmail(e.target.value))}
       />
-      <DatePickerValue />
+      <DatePickerValue userInfo={userInfo} />
 
       <CheckboxesTags />
       <Button

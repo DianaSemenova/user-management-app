@@ -1,4 +1,13 @@
+import { Dispatch } from "react";
 import * as yup from "yup";
+import {
+  setSelectedFoods,
+  setUsername,
+  setEmail,
+  setBirthdate,
+} from "../store/slices/users";
+import dayjs from "dayjs";
+import { AnyAction } from "redux";
 
 export const getFoodName = (
   foodID: number,
@@ -24,3 +33,10 @@ export const schema = yup.object().shape({
   // .required("Дата рождения обязательна для заполнения")
   // .max(new Date(), "Дата рождения не может быть в будущем"),
 });
+
+export const clearingFormData = (dispatch: Dispatch<AnyAction>) => {
+  dispatch(setSelectedFoods([]));
+  dispatch(setUsername(""));
+  dispatch(setEmail(""));
+  dispatch(setBirthdate(dayjs(new Date()).format("DD.MM.YYYY")));
+};

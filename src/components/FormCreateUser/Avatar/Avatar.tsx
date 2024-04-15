@@ -1,6 +1,9 @@
+import { IUser } from "../../../types/types";
+
 interface IAvatarProps {
   image: File | null;
   setImage: React.Dispatch<React.SetStateAction<File | null>>;
+  userInfo: IUser | undefined;
 }
 
 const Avatar = ({ image, setImage }: IAvatarProps) => {
@@ -12,13 +15,24 @@ const Avatar = ({ image, setImage }: IAvatarProps) => {
     }
   };
 
+  const getSrcAvatar = () => {
+    if (image) {
+      return URL.createObjectURL(image);
+    }
+    // if (!image && userInfo?.photo_id) {
+    //   return `https://tasks.tizh.ru/file/get?id=${userInfo?.photo_id}`;
+    // }
+
+    return "../user-placeholder.png";
+  };
+
   return (
     <div className="form-user-avatar">
       <label htmlFor="avatarUser" className="form-user-avatar__label">
         <div className="container-img-block">
           <img
             className="container-img-block__img"
-            src={image ? URL.createObjectURL(image) : "../user-placeholder.png"}
+            src={getSrcAvatar()}
             alt="avatar-user"
           />
         </div>
