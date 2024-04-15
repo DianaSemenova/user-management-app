@@ -54,6 +54,9 @@ export const usersSlice = createSlice({
     setBirthdate(state, action: PayloadAction<string>) {
       state.bodyUserPost.birthdate = action.payload;
     },
+    setSort(state, action: PayloadAction<string>) {
+      state.params.sort = action.payload;
+    },
   },
 });
 
@@ -64,6 +67,7 @@ export const {
   setUsername,
   setEmail,
   setBirthdate,
+  setSort,
 } = usersSlice.actions;
 
 export default usersSlice.reducer;

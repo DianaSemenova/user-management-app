@@ -11,6 +11,7 @@ import {
   setEmail,
   setBirthdate,
 } from "../../store/slices/users";
+import { clearingFormData } from "../../utils/helpers";
 
 interface ICreateUserProps {
   isEdit: boolean;
@@ -43,6 +44,10 @@ const CreateUser = ({ isEdit }: ICreateUserProps) => {
       dispatch(setBirthdate(data.birthdate));
     }
   }, [data]);
+
+  useEffect(() => {
+    clearingFormData(dispatch);
+  }, []);
 
   return (
     <Container maxWidth="md">

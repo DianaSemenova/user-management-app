@@ -41,8 +41,9 @@ const FormCreateUser = ({ isEdit, userInfo }: IFormCreateUserProps) => {
 
   const onSubmit = async () => {
     try {
-      const fettchUser = isEdit ? updateUser : createUser;
-      await fettchUser({
+      const fetchUser = isEdit ? updateUser : createUser;
+
+      await fetchUser({
         username,
         email,
         selectedFoods,
@@ -60,12 +61,10 @@ const FormCreateUser = ({ isEdit, userInfo }: IFormCreateUserProps) => {
       }
 
       if (!isLoadingUser && dataUser?.id && isEdit) {
-   
         const id = dataUser?.id;
 
         clearingFormData(dispatch);
 
-        alert("Пользователь успешно создан");
         navigate(`/view-user-info/${id}`);
       }
     } catch (error) {
@@ -101,6 +100,7 @@ const FormCreateUser = ({ isEdit, userInfo }: IFormCreateUserProps) => {
       <DatePickerValue userInfo={userInfo} />
 
       <CheckboxesTags />
+
       <Button
         type="submit"
         variant="contained"
