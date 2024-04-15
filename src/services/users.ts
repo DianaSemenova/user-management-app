@@ -46,6 +46,55 @@ export const usersQuery = createApi({
       }),
       invalidatesTags: ["Users", "User"],
     }),
+    createUser: build.mutation({
+      query: (body) => {
+        const formData = new FormData();
+
+        formData.append("file", body.image);
+
+        return {
+          url: `/create`,
+          method: "POST",
+          body: {
+            username: body.username,
+            email: body.email,
+            favorite_food_ids: body.selectedFoods,
+            birthdate: body.birthdate,
+            upload_photo: formData,
+          },
+
+          headers: {
+            "content-type": "application/json",
+          },
+        };
+      },
+      invalidatesTags: ["Users", "User"],
+    }),
+
+    updateUser: build.mutation({
+      query: (body) => {
+        const formData = new FormData();
+
+        formData.append("file", body.image);
+
+        return {
+          url: `/update?id=${body.id}`,
+          method: "PUT",
+          body: {
+            username: body.username,
+            email: body.email,
+            favorite_food_ids: body.selectedFoods,
+            birthdate: body.birthdate,
+            upload_photo: formData,
+          },
+
+          headers: {
+            "content-type": "application/json",
+          },
+        };
+      },
+      invalidatesTags: ["Users", "User"],
+    }),
   }),
 });
 
@@ -53,6 +102,9 @@ export const {
   useGetUsersQuery,
   useGetFoodListQuery,
   useGetUserQuery,
+  useLazyGetUserQuery,
   useDeleteUserMutation,
   useDeleteAvatarUserMutation,
+  useCreateUserMutation,
+  useUpdateUserMutation
 } = usersQuery;

@@ -46,7 +46,7 @@ const TableIcons = ({ user }: ITableIconsProps) => {
         />
       </Link>
 
-      <Link to="/" title="Редактировать">
+      <Link to={`/update-user/${user.id}`} title="Редактировать">
         <EditIcon
           color="primary"
           sx={{

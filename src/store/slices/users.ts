@@ -1,9 +1,11 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-import { IParamsState } from "../../types/types";
+import { IParamsState, IBodyUserPost } from "../../types/types";
+import dayjs from "dayjs";
 
 export interface IInitialState {
   foodList: { [key: string]: string };
   params: IParamsState;
+  bodyUserPost: IBodyUserPost;
 }
 
 const initialState: IInitialState = {
@@ -20,6 +22,13 @@ const initialState: IInitialState = {
     "UserSearch[birthdateStart]": "",
     "UserSearch[birthdateEnd]": "",
   },
+
+  bodyUserPost: {
+    username: "",
+    email: "",
+    selectedFoods: [],
+    birthdate: dayjs(new Date()).format("DD.MM.YYYY"),
+  },
 };
 
 export const usersSlice = createSlice({
@@ -32,9 +41,29 @@ export const usersSlice = createSlice({
     setParamsUsers(state, action: PayloadAction<IParamsState>) {
       state.params = action.payload;
     },
+
+    setSelectedFoods(state, action: PayloadAction<number[]>) {
+      state.bodyUserPost.selectedFoods = action.payload;
+    },
+    setUsername(state, action: PayloadAction<string>) {
+      state.bodyUserPost.username = action.payload;
+    },
+    setEmail(state, action: PayloadAction<string>) {
+      state.bodyUserPost.email = action.payload;
+    },
+    setBirthdate(state, action: PayloadAction<string>) {
+      state.bodyUserPost.birthdate = action.payload;
+    },
   },
 });
 
-export const { setParamsUsers, setFoodList } = usersSlice.actions;
+export const {
+  setParamsUsers,
+  setFoodList,
+  setSelectedFoods,
+  setUsername,
+  setEmail,
+  setBirthdate,
+} = usersSlice.actions;
 
 export default usersSlice.reducer;

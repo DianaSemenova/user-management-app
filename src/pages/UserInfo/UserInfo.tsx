@@ -40,7 +40,7 @@ const UserInfo = () => {
             padding: "10px 50px",
             boxShadow: "0 0 10px 5px rgba(0, 0, 0, 0.1)",
           }}
-          onClick={() => navigate("/create-user")}
+          onClick={() => navigate(`/update-user/${id}`)}
         >
           Изменить
         </Button>
