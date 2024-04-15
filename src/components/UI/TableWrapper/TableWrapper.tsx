@@ -30,7 +30,9 @@ const TableWrapper = ({ children, size = "14px" }: ITableWrapperProps) => {
   return (
     <ThemeProvider theme={theme}>
       <TableContainer component={Paper}>
-        <Table>{children}</Table>
+        <Table stickyHeader aria-label="sticky table">
+          {children}
+        </Table>
       </TableContainer>
     </ThemeProvider>
   );

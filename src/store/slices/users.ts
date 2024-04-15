@@ -1,5 +1,6 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { IParamsState, IBodyUserPost } from "../../types/types";
+import dayjs from "dayjs";
 
 export interface IInitialState {
   foodList: { [key: string]: string };
@@ -26,8 +27,7 @@ const initialState: IInitialState = {
     username: "",
     email: "",
     selectedFoods: [],
-    birthdate: new Date().toString(),
-    image: null,
+    birthdate: dayjs(new Date()).format("DD.MM.YYYY"),
   },
 };
 
@@ -45,10 +45,6 @@ export const usersSlice = createSlice({
     setSelectedFoods(state, action: PayloadAction<number[]>) {
       state.bodyUserPost.selectedFoods = action.payload;
     },
-    setImage(state, action: PayloadAction<File | null>) {
-      state.bodyUserPost.image = action.payload;
-    },
-
     setUsername(state, action: PayloadAction<string>) {
       state.bodyUserPost.username = action.payload;
     },
@@ -65,7 +61,6 @@ export const {
   setParamsUsers,
   setFoodList,
   setSelectedFoods,
-  setImage,
   setUsername,
   setEmail,
   setBirthdate,

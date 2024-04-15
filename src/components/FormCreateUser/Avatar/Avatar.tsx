@@ -1,13 +1,9 @@
-// import { useAppSelector } from "../../../store/hooks";
-// import { useAppDispatch } from "../../../store/hooks";
-// import { setImage } from "../../../store/slices/users";
-import { useState } from "react";
+interface IAvatarProps {
+  image: File | null;
+  setImage: React.Dispatch<React.SetStateAction<File | null>>;
+}
 
-const Avatar = () => {
-  // const dispatch = useAppDispatch();
-  // const image = useAppSelector((state) => state.users.bodyUserPost.image);
-  const [image, setImage] = useState<File | null>(null);
-
+const Avatar = ({ image, setImage }: IAvatarProps) => {
   const handleChangeImage = (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files;
 

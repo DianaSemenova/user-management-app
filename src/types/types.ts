@@ -32,5 +32,4 @@ export interface IBodyUserPost {
   email: string;
   selectedFoods: number[];
   birthdate: string;
-  image: File | null;
 }

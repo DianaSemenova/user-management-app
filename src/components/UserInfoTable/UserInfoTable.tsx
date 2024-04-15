@@ -107,7 +107,6 @@ const UserInfoTable = ({ user }: IUserInfoTableProps) => {
             sx={{
               display: "flex",
               justifyContent: "center",
-              border: "none",
             }}
           >
             <div className="container-img-block">
