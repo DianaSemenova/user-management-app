@@ -5,6 +5,7 @@ import {
   setUsername,
   setEmail,
   setBirthdate,
+  setSort,
 } from "../store/slices/users";
 import dayjs from "dayjs";
 import { AnyAction } from "redux";
@@ -39,4 +40,5 @@ export const clearingFormData = (dispatch: Dispatch<AnyAction>) => {
   dispatch(setUsername(""));
   dispatch(setEmail(""));
   dispatch(setBirthdate(dayjs(new Date()).format("DD.MM.YYYY")));
+  dispatch(setSort(""));
 };

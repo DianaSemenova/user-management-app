@@ -20,8 +20,7 @@ const UsersListTable = () => {
   const { data } = useGetUsersQuery(params);
 
   const handleSort = (item: any) => {
-    dispatch(setSort(item));
-
+    console.log("item", item);
     if (item === params.sort) {
       dispatch(setSort(`-${item}`));
     } else {
@@ -34,18 +33,22 @@ const UsersListTable = () => {
       <TableHead>
         <TableRow>
           {tableHeaderNames.map((item) => (
-            <TableCell key={item.name} onClick={() => handleSort(item)}>
-              <div
-                style={{
-                  display: "flex",
-                  flexDirection: "row",
-                  gap: "5px",
-                }}
-              >
+            <TableCell key={item.name} onClick={() => handleSort(item.nameEn)}>
+              <div className="container-table-headers">
                 {item.name}
-                {params.sort && params.sort === item.name && (
-                  <StraightIcon sx={{ rotate: "-180" }} />
-                )}
+                {params.sort &&
+                  (params.sort.startsWith("-")
+                    ? params.sort.slice(1)
+                    : params.sort) === item.nameEn && (
+                    <StraightIcon
+                      sx={{
+                        transform: params.sort.includes("-")
+                          ? "rotate(180deg)"
+                          : "rotate(0deg)",
+                        transition: "transform 0.5s ease-in-out",
+                      }}
+                    />
+                  )}
               </div>
             </TableCell>
           ))}

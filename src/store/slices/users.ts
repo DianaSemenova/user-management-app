@@ -55,6 +55,7 @@ export const usersSlice = createSlice({
       state.bodyUserPost.birthdate = action.payload;
     },
     setSort(state, action: PayloadAction<string>) {
+      console.log("action.payload", action.payload);
       state.params.sort = action.payload;
     },
   },

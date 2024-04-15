@@ -140,6 +140,20 @@
     gap: 5px;
     flex-wrap: wrap;
   }
+
+  &-table-headers {
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+    cursor: pointer;
+    color: #1976d2;
+    font-size: 16px;
+
+    &:hover {
+      color: #125ea9;
+      text-decoration: underline;
+    }
+  }
 }
 
 .form {
